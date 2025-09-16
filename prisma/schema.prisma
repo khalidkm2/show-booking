@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Show {
+  id Int @unique @default(autoincrement())
+  title String
+  startingTime DateTime
+  seats Seat[]
+  reservations Reservation[]
+}
+
+enum Status{
+  CONFIRMED
+  CANCELLED
+}
+
+model Reservation {
+  id Int @unique @default(autoincrement())
+  userId Int
+  showId Int
+  seatId Int
+  seat Seat @relation(fields: [seatId],references: [id])
+  show Show @relation(fields: [showId],references: [id])
+  status Status
+}
+
+model Seat {
+  id Int @unique @default(autoincrement())
+  seatNo String
+  isBooked Boolean
+  showId Int
+  show Show  @relation(fields: [showId], references: [id])
+  reservations Reservation[]
+}
