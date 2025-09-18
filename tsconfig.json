@@ -5,5 +5,5 @@
     "rootDir": "./"
   },
   "include": ["**/*.ts", "src/concure"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
 }
