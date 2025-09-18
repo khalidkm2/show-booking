@@ -14,6 +14,9 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
+# migrate db
+RUN npx prisma migrate
+
 # Build the app
 RUN npm run build
 

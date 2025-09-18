@@ -1,4 +1,3 @@
-
 version: '3.9'
 
 services:
@@ -8,25 +7,35 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb?schema=public
+      DATABASE_URL: ${DATABASE_URL}
     depends_on:
       - db
     volumes:
-      - /app/node_modules
+      # - .:/app             # Mount project folder for live development
+      - /app/node_modules  # Keep container node_modules safe
+    env_file:
+      - .env
+    # command: npm run dev   # Use nodemon or ts-node-dev for auto reload
 
-
-  
   db:
     image: postgres:15
     container_name: my_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
