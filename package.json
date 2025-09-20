@@ -27,14 +27,19 @@
   "homepage": "https://github.com/khalidkm2/show-booking#readme",
   "dependencies": {
     "@prisma/client": "^6.16.1",
+    "@types/cookie-parser": "^1.4.9",
     "axios": "^1.12.2",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^6.16.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.3",
     "eslint": "^9.35.0",
     "eslint-plugin-perfectionist": "^4.15.0",

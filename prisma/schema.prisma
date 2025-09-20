@@ -14,33 +14,51 @@ datasource db {
 }
 
 model Show {
-  id Int @unique @default(autoincrement())
+  id Int @id @default(autoincrement())
   title String
   startingTime DateTime
   seats Seat[]
   reservations Reservation[]
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
 
-enum Status{
+enum Status {
   CONFIRMED
   CANCELLED
 }
 
 model Reservation {
-  id Int @unique @default(autoincrement())
-  userId Int
+  id Int @id @default(autoincrement())
   showId Int
   seatId Int
-  seat Seat @relation(fields: [seatId],references: [id])
-  show Show @relation(fields: [showId],references: [id])
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  seat Seat @relation(fields: [seatId], references: [id])
+  show Show @relation(fields: [showId], references: [id])
   status Status
 }
 
 model Seat {
-  id Int @unique @default(autoincrement())
+  id Int @id @default(autoincrement())
   seatNo String
   isBooked Boolean
   showId Int
-  show Show  @relation(fields: [showId], references: [id])
+  show Show @relation(fields: [showId], references: [id])
   reservations Reservation[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  password String
+  reservations Reservation[]
+  role Role @default(USER)
+  shows Show[]
+}
+
+enum Role {
+  ADMIN
+  USER
 }
