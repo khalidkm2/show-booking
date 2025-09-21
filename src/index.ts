@@ -1,5 +1,7 @@
 import express, { Application } from "express";
-import bookingRouter from "./routes/booking.route.js"
+import bookingRouter from "./routes/booking.route.js";
+import showRouter from "./routes/show.route.js";
+import userRouter from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
 
 
@@ -15,11 +17,13 @@ app.get("/health",(req,res) => {
 
 
 //routes
-app.use("/api/v1/",bookingRouter);
+app.use("/api/v1/booking",bookingRouter);
+app.use("/api/v1/user",userRouter);
+app.use("/api/v1/shows", showRouter);
 
 
 
 
 app.listen(3000, () => {
-    console.log("server is listening at port 3000")
+    console.log("server is listening at port 3000");
 })

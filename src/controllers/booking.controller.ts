@@ -82,7 +82,7 @@ const getAllSeats: RequestHandler = async (req, res) => {
         const intShowId = parseInt(showId);
         const seats = await prisma.seat.findMany({
             where: { showId: intShowId },
-            select:{id:true,seatNo:true,isBooked:true}
+            select: { id: true, seatNo: true, isBooked: true }
         });
         return res.status(200).json({ data: seats })
     } catch (error) {

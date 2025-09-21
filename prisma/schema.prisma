@@ -41,12 +41,17 @@ model Reservation {
 
 model Seat {
   id Int @id @default(autoincrement())
+  row String
+  column Int
   seatNo String
   isBooked Boolean
   showId Int
   show Show @relation(fields: [showId], references: [id])
   reservations Reservation[]
+  
+  @@unique([showId, seatNo]) // ensures seatNo unique per show
 }
+
 
 model User {
   id Int @id @default(autoincrement())
