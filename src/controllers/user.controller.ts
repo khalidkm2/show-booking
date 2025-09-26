@@ -72,15 +72,29 @@ const signIn: RequestHandler = async (req, res) => {
         return res
             .status(201)
             .cookie("token",token, options)
-            .json({ message: "user logged in successfully",data:filterdUser })
+            .json({ message: "user logged in successfully",data:filterdUser,token })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "failed to login" })
     }
 }
 
+const checkUser:RequestHandler = async(req,res) => {
+    try {
+        if(!req.user){
+            return res.status(400).json({message:"failed to verify user"})
+        }
+        const {password,...filteredUser} = req.user;
+        return res.status(200).json({message:"verified successfully", data:filteredUser})
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({message:"you are not authorized"});
+    }
+}
+
 
 export {
     signIn,
-    signUp
+    signUp,
+    checkUser
 }

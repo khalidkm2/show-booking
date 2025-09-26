@@ -14,13 +14,26 @@ datasource db {
 }
 
 model Show {
-  id Int @id @default(autoincrement())
-  title String
-  startingTime DateTime
-  seats Seat[]
-  reservations Reservation[]
-  userId Int
-  user User @relation(fields: [userId], references: [id])
+  id              Int           @id @default(autoincrement())
+  title           String
+  description     String
+  category        String
+  image           String         // poster
+  backgroundImage String?        // carousel/banner
+  startingTime    DateTime
+  duration        Int?           // minutes
+  price           Float?
+  rating          Float?
+  language        String?
+  ageLimit        String?
+  
+  seats           Seat[]
+  reservations    Reservation[]
+  userId          Int
+  user            User           @relation(fields: [userId], references: [id])
+  
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
 
 enum Status {
