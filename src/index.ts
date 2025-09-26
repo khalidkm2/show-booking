@@ -8,9 +8,10 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend origin
-  credentials: true                // allow cookies/auth headers
+  origin: ["http://localhost:5173", "https://booking-client-seven.vercel.app"],
+  credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
