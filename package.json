@@ -5,15 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsx --watch src/index.ts",
-    "start": "node ./dist/src/index.js",
-    "seed": "npx tsx prisma/seed.ts",
-    "build": "tsc",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "npx tsx --watch src/index.ts",
+  "build": "tsc",
+  "start": "npx prisma generate && node ./dist/src/index.js",
+
+  "prisma:generate": "prisma generate",
+  "prisma:migrate": "prisma migrate dev",
+  "prisma:deploy": "prisma migrate deploy",
+  "prisma:studio": "prisma studio"
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khalidkm2/show-booking.git"
